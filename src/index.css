@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary: Azul aurora profundo */
+    --primary: 235 85% 65%; /* #5B7FFF - Azul vibrante mas suave */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 235 85% 58%;
+
+    /* Secondary: Verde esmeralda vibrante */
+    --secondary: 145 70% 55%; /* #2DD68A - Verde esmeralda */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent: Turquesa celestial */
+    --accent: 185 75% 60%; /* #45D9D9 - Turquesa brilhante */
+    --accent-foreground: 0 0% 100%;
+
+    /* Terciário: Coral sunset */
+    --tertiary: 15 90% 70%; /* #FF9B7D - Coral quente */
+    --tertiary-foreground: 0 0% 100%;
+
+    /* Background: Gradiente sutil lilás-azul */
+    --background: 245 30% 97%; /* #F7F7FB - Lilás muito claro */
+    --foreground: 235 15% 20%; /* #2B2D3D - Azul escuro profundo */
+
+    /* Cards: Branco com toque de lilás */
+    --card: 250 40% 99%; /* #FDFCFE - Branco levemente lilás */
+    --card-foreground: 235 15% 20%;
+
+    /* Bordas: Lilás suave */
+    --border: 245 25% 88%; /* #E4E3EE - Lilás pálido */
+    --input: 245 30% 93%;
+    --ring: 235 85% 65%;
+
+    /* Muted: Cinza azulado */
+    --muted: 240 20% 94%; /* #EEEFF4 - Cinza com toque azul */
+    --muted-foreground: 235 10% 50%; /* #787A8A */
+
+    /* Success: Verde esmeralda */
+    --success: 160 75% 55%; /* #2DD4BF - Verde turquesa */
+    --success-foreground: 0 0% 100%;
+
+    /* Warning: Âmbar dourado */
+    --warning: 40 95% 60%; /* #F59E0B - Dourado vibrante */
+    --warning-foreground: 0 0% 100%;
+
+    /* Destructive: Vermelho cereja */
+    --destructive: 0 85% 65%; /* #F87171 - Vermelho suave */
+    --destructive-foreground: 0 0% 100%;
+
+    /* Info: Azul safira */
+    --info: 210 90% 60%; /* #3B82F6 */
+    --info-foreground: 0 0% 100%;
+
+    /* Radius: Bordas mais arredondadas */
+    --radius: 0.875rem;
+  }
+
+  .dark {
+    /* Primary: Azul aurora brilhante */
+    --primary: 235 90% 70%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 235 90% 65%;
+
+    /* Secondary: Verde esmeralda vibrante */
+    --secondary: 145 75% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent: Turquesa neon */
+    --accent: 185 80% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Terciário: Coral brilhante */
+    --tertiary: 15 95% 65%;
+    --tertiary-foreground: 0 0% 100%;
+
+    /* Background: Azul meia-noite profundo */
+    --background: 235 25% 10%; /* #0F111D - Azul muito escuro */
+    --foreground: 240 20% 95%;
+
+    /* Cards: Azul escuro com brilho */
+    --card: 235 20% 15%; /* #1A1D2E - Azul escuro */
+    --card-foreground: 240 20% 95%;
+
+    /* Bordas: Azul médio */
+    --border: 235 15% 25%;
+    --input: 235 20% 20%;
+    --ring: 235 90% 70%;
+
+    /* Muted */
+    --muted: 235 15% 18%;
+    --muted-foreground: 240 10% 60%;
+
+    /* Success: Verde esmeralda */
+    --success: 160 80% 55%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning: Âmbar dourado */
+    --warning: 40 95% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Destructive: Vermelho cereja */
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Info: Azul safira */
+    --info: 210 90% 55%;
+    --info-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  /* Botão com gradiente no hover */
+  .btn-gradient-hover {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .btn-gradient-hover::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  }
+
+  .btn-gradient-hover:hover::before {
+    @apply opacity-100;
+  }
+
+  .btn-gradient-hover > * {
+    @apply relative z-10;
+  }
+
+  /* Card com sombra suave e borda gradiente */
+  .card-refined {
+    @apply bg-card rounded-xl shadow-sm relative;
+    box-shadow:
+      0 2px 8px rgba(91, 127, 255, 0.08),
+      0 1px 2px rgba(69, 217, 217, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .card-refined::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+      hsl(var(--primary) / 0.15),
+      hsl(var(--accent) / 0.15),
+      hsl(var(--secondary) / 0.1)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card-refined:hover::before {
+    opacity: 1;
+  }
+
+  .card-refined:hover {
+    box-shadow:
+      0 8px 24px rgba(91, 127, 255, 0.12),
+      0 4px 8px rgba(69, 217, 217, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    @apply transition-all duration-300;
+  }
+
+  /* Input refinado com gradiente no focus */
+  .input-refined {
+    @apply bg-card/50 border-2 border-border rounded-lg px-4 py-2.5
+           text-foreground placeholder:text-muted-foreground
+           focus:outline-none
+           transition-all duration-200 backdrop-blur-sm;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .input-refined:focus {
+    @apply border-transparent;
+    box-shadow:
+      0 0 0 2px hsl(var(--primary) / 0.2),
+      0 4px 12px rgba(91, 127, 255, 0.15),
+      inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(to bottom,
+      hsl(var(--card)),
+      hsl(var(--muted) / 0.3)
+    );
+  }
+
+  /* Background com padrão sutil */
+  .bg-pattern {
+    background-image:
+      radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(var(--accent) / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, hsl(var(--secondary) / 0.02) 0%, transparent 50%);
+  }
+
+  /* Loading spinner com gradiente */
+  .spinner-gradient {
+    border-color: hsl(var(--muted));
+    border-top-color: hsl(var(--primary));
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* Gradiente de texto animado */
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      hsl(var(--primary)),
+      hsl(var(--accent)),
+      hsl(var(--secondary)),
+      hsl(var(--primary))
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply backdrop-blur-xl bg-card/40;
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow:
+      0 8px 32px rgba(91, 127, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  /* Força texto branco em botões com background colorido */
+  button[class*="bg-gradient"],
+  button[class*="bg-primary"],
+  button[class*="bg-secondary"],
+  button[class*="bg-accent"] {
+    color: white !important;
+    --tw-text-opacity: 1 !important;
+  }
+
+  button[class*="bg-gradient"] *,
+  button[class*="bg-primary"] *,
+  button[class*="bg-secondary"] *,
+  button[class*="bg-accent"] * {
+    color: white !important;
+    fill: white !important;
+    stroke: white !important;
+    --tw-text-opacity: 1 !important;
+  }
+
+  button[class*="bg-gradient"]:hover,
+  button[class*="bg-primary"]:hover,
+  button[class*="bg-secondary"]:hover,
+  button[class*="bg-accent"]:hover {
+    color: white !important;
+    --tw-text-opacity: 1 !important;
+  }
+
+  button[class*="bg-gradient"]:hover *,
+  button[class*="bg-primary"]:hover *,
+  button[class*="bg-secondary"]:hover *,
+  button[class*="bg-accent"]:hover * {
+    color: white !important;
+    fill: white !important;
+    stroke: white !important;
+    --tw-text-opacity: 1 !important;
+  }
+
+  /* SVG dentro de botões coloridos */
+  button[class*="bg-gradient"] svg,
+  button[class*="bg-primary"] svg,
+  button[class*="bg-secondary"] svg,
+  button[class*="bg-accent"] svg {
+    color: white !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
+  }
+
+  button[class*="bg-gradient"]:hover svg,
+  button[class*="bg-primary"]:hover svg,
+  button[class*="bg-secondary"]:hover svg,
+  button[class*="bg-accent"]:hover svg {
+    color: white !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
+  }
+}
