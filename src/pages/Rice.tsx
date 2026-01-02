@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Plus, Trash2 } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
+import { cn } from '../lib/utils'
 import type { RiceItem } from '../types'
 import { useTranslation } from 'react-i18next'
 
@@ -86,14 +87,24 @@ export function Rice() {
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium">{t('rice.impact')}</label>
-              <Input
-                type="number"
-                placeholder={t('rice.impact')}
-                min="1"
-                max="3"
-                value={newItem.impact || ''}
-                onChange={(e) => setNewItem({ ...newItem, impact: Number(e.target.value) })}
-              />
+              <div className="flex gap-2">
+                {[1, 2, 3].map((value) => (
+                  <Button
+                    key={value}
+                    type="button"
+                    variant="outline"
+                    onClick={() => setNewItem({ ...newItem, impact: value })}
+                    className={cn(
+                      "flex-1",
+                      newItem.impact === value
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                        : "text-foreground hover:text-foreground"
+                    )}
+                  >
+                    {value}
+                  </Button>
+                ))}
+              </div>
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium">{t('rice.confidence')}</label>

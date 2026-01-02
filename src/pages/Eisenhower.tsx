@@ -87,17 +87,27 @@ export function Eisenhower() {
                 <div className="flex gap-2">
                   <Button
                     type="button"
-                    variant={newItem.urgency === 'high' ? 'default' : 'outline'}
+                    variant="outline"
                     onClick={() => setNewItem({ ...newItem, urgency: 'high' })}
-                    className="flex-1"
+                    className={cn(
+                      "flex-1",
+                      newItem.urgency === 'high'
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                        : "text-foreground hover:text-foreground"
+                    )}
                   >
                     {t('eisenhower.high')}
                   </Button>
                   <Button
                     type="button"
-                    variant={newItem.urgency === 'low' ? 'default' : 'outline'}
+                    variant="outline"
                     onClick={() => setNewItem({ ...newItem, urgency: 'low' })}
-                    className="flex-1"
+                    className={cn(
+                      "flex-1",
+                      newItem.urgency === 'low'
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                        : "text-foreground hover:text-foreground"
+                    )}
                   >
                     {t('eisenhower.low')}
                   </Button>
@@ -108,17 +118,27 @@ export function Eisenhower() {
                 <div className="flex gap-2">
                   <Button
                     type="button"
-                    variant={newItem.importance === 'high' ? 'default' : 'outline'}
+                    variant="outline"
                     onClick={() => setNewItem({ ...newItem, importance: 'high' })}
-                    className="flex-1"
+                    className={cn(
+                      "flex-1",
+                      newItem.importance === 'high'
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                        : "text-foreground hover:text-foreground"
+                    )}
                   >
                     {t('eisenhower.high')}
                   </Button>
                   <Button
                     type="button"
-                    variant={newItem.importance === 'low' ? 'default' : 'outline'}
+                    variant="outline"
                     onClick={() => setNewItem({ ...newItem, importance: 'low' })}
-                    className="flex-1"
+                    className={cn(
+                      "flex-1",
+                      newItem.importance === 'low'
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                        : "text-foreground hover:text-foreground"
+                    )}
                   >
                     {t('eisenhower.low')}
                   </Button>

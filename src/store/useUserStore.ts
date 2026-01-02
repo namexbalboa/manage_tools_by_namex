@@ -8,6 +8,8 @@ interface UserStore {
   updateAvatar: (avatar: AvatarCustomization) => void
   clearUser: () => void
   isAuthenticated: boolean
+  isEditingProfile: boolean
+  setIsEditingProfile: (value: boolean) => void
 }
 
 export const useUserStore = create<UserStore>()(
@@ -15,6 +17,7 @@ export const useUserStore = create<UserStore>()(
     (set) => ({
       user: null,
       isAuthenticated: false,
+      isEditingProfile: false,
       setUser: (user) =>
         set({
           user,
@@ -28,6 +31,10 @@ export const useUserStore = create<UserStore>()(
         set({
           user: null,
           isAuthenticated: false,
+        }),
+      setIsEditingProfile: (value) =>
+        set({
+          isEditingProfile: value,
         }),
     }),
     {

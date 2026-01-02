@@ -29,6 +29,7 @@ export function AvatarCustomizer({ value, onChange }: AvatarCustomizerProps) {
           {(['head', 'body'] as const).map((tab) => (
             <button
               key={tab}
+              type="button"
               onClick={() => setActiveTab(tab)}
               className={cn(
                 'flex-1 border-b-2 px-4 py-2 text-sm font-medium transition-colors',
@@ -37,7 +38,7 @@ export function AvatarCustomizer({ value, onChange }: AvatarCustomizerProps) {
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               )}
             >
-              {t('welcome.' + tab)}
+              {t(`welcome.${tab}Tab`)}
             </button>
           ))}
         </div>
@@ -46,6 +47,7 @@ export function AvatarCustomizer({ value, onChange }: AvatarCustomizerProps) {
           {avatarOptions[activeTab].map((option) => (
             <button
               key={option.id}
+              type="button"
               onClick={() => handleSelect(activeTab, option.id)}
               className={cn(
                 'card-refined flex flex-col items-center gap-2 p-3 transition-all hover:scale-105',
@@ -58,7 +60,6 @@ export function AvatarCustomizer({ value, onChange }: AvatarCustomizerProps) {
               ) : (
                 <div className="flex h-12 w-12 items-center justify-center text-2xl">👤</div>
               )}
-              <span className="text-xs font-medium text-center">{t(`welcome.${activeTab}.${option.id}`)}</span>
             </button>
           ))}
         </div>

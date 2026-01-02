@@ -9,37 +9,43 @@ import { useTranslation } from 'react-i18next'
 
 export function WelcomeModal() {
   const { t } = useTranslation()
-  const { user, setUser, isAuthenticated } = useUserStore()
-  const [open, setOpen] = useState(!isAuthenticated)
-  const [nickname, setNickname] = useState('')
-  const [avatar, setAvatar] = useState<AvatarCustomization>({
-    head: 'none',
-    body: 'default',
-  })
+  const { user, setUser, isAuthenticated, isEditingProfile, setIsEditingProfile } = useUserStore()
+  const [nickname, setNickname] = useState(user?.nickname || '')
+  const [avatar, setAvatar] = useState<AvatarCustomization>(
+    user?.avatar || {
+      head: 'boy_1',
+      body: 'body_boy_1',
+    }
+  )
+
+  const open = !isAuthenticated || isEditingProfile
 
   useEffect(() => {
-    setOpen(!isAuthenticated)
-  }, [isAuthenticated])
+    if (user) {
+      setNickname(user.nickname)
+      setAvatar(user.avatar)
+    }
+  }, [user])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!nickname.trim()) return
 
-    const newUser = {
-      id: Math.random().toString(36).substring(2, 15),
+    const updatedUser = {
+      id: user?.id || Math.random().toString(36).substring(2, 15),
       nickname: nickname.trim(),
       avatar,
-      createdAt: Date.now(),
+      createdAt: user?.createdAt || Date.now(),
     }
 
-    setUser(newUser)
-    setOpen(false)
+    setUser(updatedUser)
+    setIsEditingProfile(false)
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[500px]">
+    <Dialog open={open} onOpenChange={() => {}}>
+      <DialogContent className="sm:max-w-[500px]" hideClose onInteractOutside={(e) => e.preventDefault()} onEscapeKeyDown={(e) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle className="text-2xl text-gradient">
             {t('welcome.title')}

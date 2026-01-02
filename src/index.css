@@ -318,3 +318,187 @@
     stroke: currentColor !important;
   }
 }
+
+/* ==================== PLANNING POKER ANIMATIONS ==================== */
+
+/* Card flip 3D animation for reveal */
+@keyframes card-flip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+.card-flip {
+  animation: card-flip 0.6s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+/* Confetti particles for consensus */
+@keyframes confetti-burst {
+  0% {
+    transform: translate(0, 0) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(var(--x, 50px), var(--y, -100px)) scale(1.5) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--x, 100px), var(--y, 200px)) scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(
+    45deg,
+    hsl(var(--primary)),
+    hsl(var(--secondary)),
+    hsl(var(--accent)),
+    hsl(var(--tertiary))
+  );
+  border-radius: 50%;
+  animation: confetti-burst 2s ease-out forwards;
+  pointer-events: none;
+  --x: calc(var(--random-x, 0.5) * 200px - 100px);
+  --y: calc(var(--random-y, 0.5) * 300px);
+}
+
+/* Reaction float animation */
+@keyframes reaction-float {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-5px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+.reaction-emoji {
+  animation: reaction-float 2s ease-out forwards;
+}
+
+/* Poker card styles */
+.poker-card {
+  perspective: 1000px;
+  transition: all 0.2s ease-out;
+}
+
+.poker-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 24px -8px hsl(var(--primary) / 0.3);
+}
+
+.poker-card:active {
+  transform: translateY(-4px) scale(0.98);
+}
+
+/* Card on table animation */
+.poker-card-on-table {
+  transition: all 0.3s ease-out;
+}
+
+/* Pulse animation for active states */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px hsl(var(--primary) / 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Shake animation for low time warning */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Slide in from left (backlog panel) */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out;
+}
+
+/* Slide in from right (participants panel) */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+/* Fade in for story card */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Scale up animation for consensus badge */
+@keyframes scale-up {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-scale-up {
+  animation: scale-up 0.4s ease-out;
+}

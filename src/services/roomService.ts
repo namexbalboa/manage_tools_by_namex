@@ -1,6 +1,6 @@
 import { ref, set, onValue, off, update, remove } from 'firebase/database'
 import { rtdb } from './firebase'
-import type { Room, ScrumPokerRoom } from '../types'
+import type { Room, ScrumPokerRoom, UserRole, Story, Reaction } from '../types'
 
 const ROOM_EXPIRY_TIME = 24 * 60 * 60 * 1000
 
@@ -69,4 +69,72 @@ export const resetScrumPoker = async (roomId: string) => {
     revealed: false,
     currentStory: '',
   })
+}
+
+// New functions for enhanced Planning Poker
+
+export const setUserRole = async (
+  roomId: string,
+  userId: string,
+  role: UserRole
+) => {
+  await update(ref(rtdb, `rooms/${roomId}/participants/${userId}`), { role })
+}
+
+export const addStory = async (roomId: string, story: Story) => {
+  await set(ref(rtdb, `rooms/${roomId}/stories/${story.id}`), story)
+}
+
+export const setCurrentStory = async (roomId: string, storyId: string | null) => {
+  await update(ref(rtdb, `rooms/${roomId}`), {
+    currentStoryId: storyId,
+    votes: {},
+    revealed: false,
+  })
+}
+
+export const startTimer = async (roomId: string, duration: number) => {
+  await update(ref(rtdb, `rooms/${roomId}/timer`), {
+    active: true,
+    duration,
+    startedAt: Date.now(),
+  })
+}
+
+export const stopTimer = async (roomId: string) => {
+  await update(ref(rtdb, `rooms/${roomId}/timer`), {
+    active: false,
+    startedAt: null,
+  })
+}
+
+export const addReaction = async (
+  roomId: string,
+  userId: string,
+  emoji: string
+) => {
+  const reaction: Reaction = {
+    emoji,
+    timestamp: Date.now(),
+  }
+  await set(ref(rtdb, `rooms/${roomId}/reactions/${userId}`), reaction)
+
+  // Auto-remove reaction after 3 seconds
+  setTimeout(async () => {
+    await remove(ref(rtdb, `rooms/${roomId}/reactions/${userId}`))
+  }, 3000)
+}
+
+export const acceptEstimate = async (
+  roomId: string,
+  storyId: string,
+  value: string
+) => {
+  await update(ref(rtdb, `rooms/${roomId}/stories/${storyId}`), {
+    estimatedValue: value,
+  })
+}
+
+export const deleteStory = async (roomId: string, storyId: string) => {
+  await remove(ref(rtdb, `rooms/${roomId}/stories/${storyId}`))
 }

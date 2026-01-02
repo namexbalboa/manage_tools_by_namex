@@ -16,20 +16,48 @@ export interface Room {
   createdBy: string
   createdAt: number
   expiresAt: number
-  participants: Participant[]
+  participants: Record<string, Participant>
   status: 'active' | 'completed' | 'expired'
 }
+
+export type UserRole = 'facilitator' | 'voter' | 'observer'
+export type DeckType = 'fibonacci' | 'tshirt' | 'linear'
 
 export interface Participant {
   userId: string
   nickname: string
   avatar: AvatarCustomization
+  role?: UserRole
   joinedAt: number
+}
+
+export interface Story {
+  id: string
+  title: string
+  description: string
+  estimatedValue: string | null
+  createdAt: number
+}
+
+export interface Timer {
+  active: boolean
+  duration: number
+  startedAt: number | null
+}
+
+export interface Reaction {
+  emoji: string
+  timestamp: number
 }
 
 export interface ScrumPokerRoom extends Room {
   type: 'scrum-poker'
+  deck?: DeckType
   currentStory: string
+  currentStoryId?: string | null
+  stories?: Record<string, Story>
+  timer?: Timer
+  reactions?: Record<string, Reaction>
   votes: Record<string, string>
   revealed: boolean
 }

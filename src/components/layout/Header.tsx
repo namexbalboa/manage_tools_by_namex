@@ -1,9 +1,11 @@
 import { useUserStore } from '../../store/useUserStore'
 import { LanguageSelector } from '../LanguageSelector'
+import { Avatar } from '../Avatar'
+import { Edit } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 export function Header() {
-  const { user } = useUserStore()
+  const { user, setIsEditingProfile } = useUserStore()
   const { t } = useTranslation()
 
   return (
@@ -26,14 +28,14 @@ export function Header() {
         <div className="flex items-center gap-4">
           <LanguageSelector />
           {user && (
-            <div className="flex items-center gap-3 rounded-lg bg-muted/50 px-3 py-1.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-                <span className="text-sm font-semibold text-primary">
-                  {user.nickname.charAt(0).toUpperCase()}
-                </span>
-              </div>
+            <button
+              onClick={() => setIsEditingProfile(true)}
+              className="flex items-center gap-3 rounded-lg bg-muted/50 px-3 py-1.5 transition-all hover:bg-muted hover:scale-105"
+            >
+              <Avatar customization={user.avatar} size="sm" />
               <span className="font-medium text-sm">{user.nickname}</span>
-            </div>
+              <Edit className="h-4 w-4 text-muted-foreground" />
+            </button>
           )}
         </div>
       </div>
